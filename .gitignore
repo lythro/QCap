@@ -1,0 +1,6 @@
+# ignore the build-folder
+build/
+
+# and any swap-files
+*.swp
+*~
