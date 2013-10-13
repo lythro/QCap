@@ -17,6 +17,7 @@ find_package( PCAP )
 
 set( sources
 	./src/QCap.cpp
+	./src/QCapEtherPacket.cpp
 )
 
 
