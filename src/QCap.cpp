@@ -1,4 +1,5 @@
 #include "QCap.h"
+#include "QCapEtherPacket.h"
 
 #include <pcap.h>
 
@@ -85,7 +86,7 @@ void QCap::pcapDataAvailable(int fd)
 	 * packet available. But since this cannot be a member
 	 * function, we will make it static and provide the
 	 * this-pointer as an argument. The callback can then
-	 * cast it to an QCap-pointer.
+	 * cast it to a QCap-pointer.
 	 */
 	pcap_dispatch( m_pcapHandle, -1, (pcap_handler) &QCap::packet_callback, (unsigned char*) this );
 }
@@ -99,7 +100,7 @@ void QCap::packet_callback( unsigned char* selfpointer,
 
 	// after this callback, pcap might get the next
 	// packet from its internal buffer, hence making
-	// the current *packet invaild / overwriting it.
+	// the current *packet invalid / overwriting it.
 	//
 	// the good news is: we don't need to free *packet
 	// 					ourselves.
@@ -111,10 +112,8 @@ void QCap::packet_callback( unsigned char* selfpointer,
 	// We are going to create our own packet-class
 	// with the ability to convert it to IP/TCP/UDP-packets
 	// and hand out a shared pointer.
-	//
-	// but for now, just a QByteArray. For testing.
-
-	QSharedPointer<QByteArray> data( new QByteArray( (const char*) packet ) );
+	
+	QSharedPointer<QCapEtherPacket> data( new QCapEtherPacket( packet, header->caplen ) );
 
 	self->emit packetReady( data );
 }

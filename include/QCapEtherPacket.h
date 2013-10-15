@@ -24,6 +24,11 @@ public:
 	// TODO
 	// QCapIpPacket toIpPacket() const;
 
+	// get a pointer to the correct position in
+	// m_packet - just after the header
+	const unsigned char* payload() const;
+	size_t payloadSize() const;
+
 private:
 	unsigned char* m_packet;
 	size_t m_size;

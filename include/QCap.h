@@ -11,6 +11,8 @@
 
 #define PCAP_TIMEOUT 10000
 
+#include "QCapEtherPacket.h"
+
 class QCap : public QObject
 {
 	Q_OBJECT
@@ -58,7 +60,7 @@ private slots:
 
 
 signals:
-	void packetReady( QSharedPointer<QByteArray> );
+	void packetReady( QSharedPointer<QCapEtherPacket> );
 };
 
 #endif

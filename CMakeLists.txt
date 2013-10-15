@@ -5,7 +5,7 @@ set( CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake_modules )
 
 
 # find & setup Qt
-find_package( Qt4 COMPONENTS QtCore QtNetwork REQUIRED )
+find_package( Qt4 ) #COMPONENTS QtCore QtNetwork REQUIRED )
 add_definitions( ${QT_DEFINITIONS} )
 
 set( QT_WRAP_CPP true )
@@ -41,5 +41,11 @@ target_link_libraries( qcap pcap ${QT_LIBRARIES} )
 # create a test-case
 #
 
-add_executable( test ./test/test.cpp )
-target_link_libraries( test qcap )
+include_directories( ${CMAKE_SOURCE_DIR}/test )
+
+QT4_WRAP_CPP( test_moc ./test/PacketInfoPrinter.h )
+
+message( ${test_moc} )
+
+add_executable( qcaptest ./test/test.cpp ./test/PacketInfoPrinter.cpp ${test_moc} )
+target_link_libraries( qcaptest qcap )

@@ -3,8 +3,12 @@
 #include <QString>
 #include <QCoreApplication>
 #include <QTimer>
+#include <QSharedPointer>
 
 #include "QCap.h"
+#include "QCapEtherPacket.h"
+
+#include "PacketInfoPrinter.h"
 
 #include <iostream>
 using std::endl;
@@ -15,6 +19,7 @@ using std::flush;
 int main(int argc, char** args)
 {
 	QCoreApplication app( argc, args );
+
 
 	cout << "-- creating QCap object..." << endl;
 	QCap cap;
@@ -37,6 +42,7 @@ int main(int argc, char** args)
 	cout << "ok." << endl;
 
 
+	/*
 	cout << "-- setting filter \"ip\"... " << flush;
 	if (!cap.setFilter( "ip" ))
 	{
@@ -44,7 +50,11 @@ int main(int argc, char** args)
 		return 1;
 	}
 	cout << "ok." << endl;
-
+	*/
+	
+	PacketInfoPrinter printer;
+	QObject::connect( &cap, SIGNAL(packetReady( QSharedPointer<QCapEtherPacket> ) ),
+					&printer, SLOT(printInfo( QSharedPointer<QCapEtherPacket> ) ) );
 
 	cout << "-- start capture..." << endl;
 	cap.start();

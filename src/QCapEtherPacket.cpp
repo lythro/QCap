@@ -53,6 +53,18 @@ bool QCapEtherPacket::isIpPacket() const
 	return (frameType() == ETHERTYPE_IP);
 }
 
+
+const unsigned char* QCapEtherPacket::payload() const
+{
+	return (m_packet + ETH_HLEN);
+}
+
+size_t QCapEtherPacket::payloadSize() const
+{
+	return (m_size - ETH_HLEN);
+}
+
+
 QCapEtherPacket::~QCapEtherPacket()
 {
 	delete[] m_packet;
