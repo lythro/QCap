@@ -1,7 +1,9 @@
 #ifndef MYETHER_H_
 #define MYETHER_H_
 
+#include "pack.h"
 #include <stdio.h>
+#include <stdint.h>
 
 /*
  **	IEEE 802.3 Ethernet magic constants.  The frame sizes omit the preamble
@@ -18,20 +20,22 @@
 #define	ETHERTYPE_IP		0x0800		/* IP */
 
 /* 10Mb/s ethernet header */
+PACK(
 struct ether_header
 {
 	uint8_t  ether_dhost[ETH_ALEN];	/* destination eth addr	*/
 	uint8_t  ether_shost[ETH_ALEN];	/* source ether addr	*/
 	uint16_t ether_type;		    /* packet type ID field	*/
-} __attribute__ ((__packed__));
+});
 
 
 /* This is a name for the 48 bit ethernet address available on many
  * systems.  */
+PACK(
 struct ether_addr
 {
-	u_int8_t ether_addr_octet[ETH_ALEN];
-} __attribute__ ((__packed__));
+	uint8_t ether_addr_octet[ETH_ALEN];
+});
 
 
 char * ether_ntoa_r(const struct ether_addr *addr, char *buf)

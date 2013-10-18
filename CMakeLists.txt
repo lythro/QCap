@@ -27,7 +27,7 @@ set( qt_object_header
 
 QT4_WRAP_CPP( moc_header ${qt_object_header} )
 
-include_directories( ${QT_INCLUDES} ${CMAKE_SOURCE_DIR}/include )
+include_directories( ${QT_INCLUDES} ${PCAP_INCLUDE_DIR} ${CMAKE_SOURCE_DIR}/include )
 
 # create the library
 add_library( qcap SHARED ${sources} ${moc_header} )

@@ -1,3 +1,10 @@
+#ifndef MYIP_H_
+#define MYIP_H_
+
+#include "pack.h"
+#include <stdint.h>
+
+PACK(
 struct iphdr
   {
 #if __BYTE_ORDER == __LITTLE_ENDIAN
@@ -9,15 +16,17 @@ struct iphdr
 #else
 # error	"Please fix <bits/endian.h>"
 #endif
-    u_int8_t tos;
-    u_int16_t tot_len;
-    u_int16_t id;
-    u_int16_t frag_off;
-    u_int8_t ttl;
-    u_int8_t protocol;
-    u_int16_t check;
-    u_int32_t saddr;
-    u_int32_t daddr;
+    uint8_t tos;
+    uint16_t tot_len;
+    uint16_t id;
+    uint16_t frag_off;
+    uint8_t ttl;
+    uint8_t protocol;
+    uint16_t check;
+    uint32_t saddr;
+    uint32_t daddr;
     /*The options start here. */
-  };
+  }
+);
 
+#endif
